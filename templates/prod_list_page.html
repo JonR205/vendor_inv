@@ -1,0 +1,43 @@
+<!-- place holder product display page -->
+
+<!DOCTYPE html>
+<html>
+ 
+<head>
+    <style>
+    table,
+    th,
+    td {
+        border: 1px solid black;
+    }
+    </style>
+</head>
+ 
+<body>
+    <table style="width:100%">
+        <tr>
+            <th>SKU</th>
+            <th>Product Name</th>
+            <th>Product Description</th>
+            <th>Cost to Make</th>
+            <th>Selling Price</th>
+            <th>Product Category</th>
+            <th>Notes</th>
+        </tr>
+        {% block content %}
+        {%for product in products%}
+        <tr>
+            <td>{{ product.sku }}</td>
+            <td>{{product.prod_name}}</td>
+            <td>{{product.prood_description}}</td>
+            <td>{{product.cost_to_make}}</td>
+            <td>{{product.price}}</td>
+            <td>{{product.category}}</td>
+            <td>{{product.prood_notes}}</td>
+            {%endfor%}
+        </tr>
+            {% endblock content %}
+    </table>
+</body>
+
+</html>
