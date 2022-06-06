@@ -68,15 +68,15 @@ def prod_list():
 
 
 @app.route("/prod_detail_page")
-def prod_details():
-    product = Products.query.filter_by(sku='1234').first()
+def prod_details(sku):
+    product = Products.query.filter_by(sku=sku).first()
     return render_template(
         "prod_detail_page.html", product=product
     )
 
 @app.route("/sku_search_page", methods=['POST','GET'])
 def sku_search():
-    products = Products.query.order_by(Products.sku)
-    return render_template(
-        "sku_search_page.html", products=products
-    )
+    if request.method == 'POST':
+        return prod_details(sku)
+    else:
+        return print("no such SKU")
