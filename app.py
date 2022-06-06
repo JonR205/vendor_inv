@@ -63,5 +63,20 @@ def hello():
 def prod_list():
     products = Products.query.order_by(Products.sku)
     return render_template(
-        "prod_list_page.html", headings=headings, data=data, products=products
+        "prod_list_page.html", products=products
+    )
+
+
+@app.route("/prod_detail_page")
+def prod_details():
+    product = Products.query.filter_by(sku='1234').first()
+    return render_template(
+        "prod_detail_page.html", product=product
+    )
+
+@app.route("/sku_search_page", methods=['POST','GET'])
+def sku_search():
+    products = Products.query.order_by(Products.sku)
+    return render_template(
+        "sku_search_page.html", products=products
     )
