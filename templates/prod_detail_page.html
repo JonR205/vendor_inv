@@ -1,0 +1,46 @@
+<!-- place holder product detail page -->
+
+<!DOCTYPE html>
+<html>
+ 
+<head>
+    <style>
+    table,
+    th,
+    td {
+        border: 1px solid black;
+    }
+    </style>
+    <input type="text" placeholder="Enter a SKU number" />
+
+    <input type="submit">
+
+
+</head>
+ 
+<body>
+    <table style="width:100%">
+        <tr>
+            <th>SKU</th>
+            <th>Product Name</th>
+            <th>Product Description</th>
+            <th>Cost to Make</th>
+            <th>Selling Price</th>
+            <th>Product Category</th>
+            <th>Notes</th>
+        </tr>
+        {% block content %}
+        <tr>
+            <td><div contenteditable>{{ product.sku }}</div></td>
+            <td><div contenteditable>{{product.prod_name}}</div></td>
+            <td><div contenteditable>{{product.prood_description}}</div></td>
+            <td><div contenteditable>{{product.cost_to_make}}</div></td>
+            <td><div contenteditable>{{product.price}}</div></td>
+            <td><div contenteditable>{{product.category}}</div></td>
+            <td><div contenteditable>{{product.prood_notes}}</div></td>
+        </tr>
+            {% endblock content %}
+    </table>
+</body>
+
+</html>
