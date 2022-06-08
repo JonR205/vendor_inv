@@ -22,6 +22,7 @@
             <th>Cost to Make</th>
             <th>Selling Price</th>
             <th>Product Category</th>
+            <th>Quantity</th>
             <th>Notes</th>
         </tr>
         {%for product in products%}
@@ -32,6 +33,7 @@
             <td><a href="http://localhost:5000/prod_details{{ product.sku }}">{{product.cost_to_make}}</a></td>
             <td><a href="http://localhost:5000/prod_details{{ product.sku }}">{{product.price}}</a></td>
             <td><a href="http://localhost:5000/prod_details{{ product.sku }}">{{product.category}}</a></td>
+            <td><a href="http://localhost:5000/prod_details{{ product.sku }}">{{product.qty}}</a></td>
             <td><a href="http://localhost:5000/prod_details{{ product.sku }}">{{product.prood_notes}}</a></td>
             {%endfor%}
         </tr>
