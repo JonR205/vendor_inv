@@ -1,5 +1,6 @@
+from distutils.log import debug
 from email.policy import default
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from sqlalchemy import DateTime
@@ -7,6 +8,7 @@ from sqlalchemy import DateTime
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///vendor.db"
+# app.run(debug=True)
 db = SQLAlchemy(app)
 headings = (
     "sku",
@@ -34,8 +36,11 @@ class Products(db.Model):
     price = db.Column(db.Float(), unique=False, nullable=False)
     category = db.Column(db.String(500), unique=False, nullable=False)
     prood_notes = db.Column(db.String(1000), unique=False, nullable=False)
+    # qty = db.Column(db.Integer, unique=True, nullable=False)
+
     def __repr__(self):
         return f"SKU: {self.sku} Name: {self.prod_name} Description: {self.prood_description} cost to make: {self.cost_to_make} Price: {self.price} Category: {self.category} Notes: {self.prood_notes}"
+
 
 # DB table for Events
 class Events(db.Model):
@@ -52,31 +57,32 @@ class Events(db.Model):
         return f"Event Name: {self.event_name} Description: {self.event_description} Start Datew: {self.event_start_date} End Date: {self.event_end_date} Products Brought: {self.products_bought} Products Sold: {self.products_sold} Notes: {self.event_notes}"
 
 
-
 # Routes for webpages
-@app.route("/")
-def hello():
-    return render_template("home_page.html")
+# @app.route("/")
+# def hello():
+#     return render_template("home_page.html")
 
 
-@app.route("/prod_list_page")
+@app.route("/", methods =['POST', 'GET'])
 def prod_list():
     products = Products.query.order_by(Products.sku)
-    return render_template(
-        "prod_list_page.html", products=products
-    )
-
-
-@app.route("/prod_detail_page")
-def prod_details(sku):
-    product = Products.query.filter_by(sku=sku).first()
-    return render_template(
-        "prod_detail_page.html", product=product
-    )
-
-@app.route("/sku_search_page", methods=['POST','GET'])
-def sku_search():
-    if request.method == 'POST':
-        return prod_details(sku)
+    if request.method == "POST":
+        sku_num = request.form["sku"]
+        return redirect(url_for("prod_details", sku_num=sku_num))
     else:
-        return print("no such SKU")
+        return render_template("prod_list_page.html",products=products)
+
+
+@app.route("/prod_details<sku_num>", methods=['GET', 'POST'])
+def prod_details(sku_num):
+    product = Products.query.filter_by(sku=str(sku_num)).first()
+    return render_template("prod_details.html", product=product)
+
+
+# @app.route("/sku_search_page", methods=["POST", "GET"])
+# def sku_search():
+#     if request.method == "POST":
+#         sku_num = request.form["sku"]
+#         return redirect(url_for("prod_details", sku_num=sku_num))
+#     else:
+#         return render_template("sku_search_page.html")
