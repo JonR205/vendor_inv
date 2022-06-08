@@ -36,7 +36,10 @@ class Products(db.Model):
     price = db.Column(db.Float(), unique=False, nullable=False)
     category = db.Column(db.String(500), unique=False, nullable=False)
     prood_notes = db.Column(db.String(1000), unique=False, nullable=False)
-    # qty = db.Column(db.Integer, unique=True, nullable=False)
+    qty = db.Column(db.Integer)
+    
+# p1=Products(sku=1234,prod_name='shirt', prood_description='holloween specials',cost_to_make=12.55,price=19.99,category='clothing',prood_notes='All sales are final!',qty=2)
+# p2=Products(sku=4523,prod_name='Jason Jacket', prood_description='Friday the 13th decals',cost_to_make=22.75,price=39.99,category='clothing',prood_notes='All sales are final!',qty=2)
 
     def __repr__(self):
         return f"SKU: {self.sku} Name: {self.prod_name} Description: {self.prood_description} cost to make: {self.cost_to_make} Price: {self.price} Category: {self.category} Notes: {self.prood_notes}"
