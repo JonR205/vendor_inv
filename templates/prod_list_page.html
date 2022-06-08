@@ -1,8 +1,8 @@
 <!-- place holder product display page -->
 
-<!DOCTYPE html>
+{% extends 'base.html' %}
 <html>
- 
+ {% block content %}
 <head>
     <style>
     table,
@@ -24,7 +24,6 @@
             <th>Product Category</th>
             <th>Notes</th>
         </tr>
-        {% block content %}
         {%for product in products%}
         <tr>
             <td>{{ product.sku }}</td>
@@ -36,8 +35,7 @@
             <td>{{product.prood_notes}}</td>
             {%endfor%}
         </tr>
-            {% endblock content %}
     </table>
 </body>
-
+{% endblock %}
 </html>
