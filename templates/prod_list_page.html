@@ -14,17 +14,17 @@
 </head>
  
 <body>
-    <table style="width:100%">
-        <tr>
-            <th>SKU</th>
-            <th>Product Name</th>
-            <th>Product Description</th>
-            <th>Cost to Make</th>
-            <th>Selling Price</th>
-            <th>Product Category</th>
-            <th>Quantity</th>
-            <th>Notes</th>
-        </tr>
+<table style="width:100%">
+    <tr>
+        <th>SKU</th>
+        <th>Product Name</th>
+        <th>Product Description</th>
+        <th>Cost to Make</th>
+        <th>Selling Price</th>
+        <th>Product Category</th>
+        <th>Quantity</th>
+        <th>Notes</th>
+    </tr>
         {%for product in products%}
         <tr>
             <td><a href="http://localhost:5000/prod_details{{ product.sku }}">{{ product.sku }}</a></td>
