@@ -101,3 +101,9 @@ def sku_search():
         return redirect(url_for("prod_list"))
     else:
         return render_template("new_product_page.html")
+
+
+@app.route("/prod_filter_by_price<price_num>", methods=['GET', 'POST'])
+def prod_filter_by_price(price_num):
+    products =  Products.query.filter_by(price=str(price_num)).all()
+    return render_template("prod_filter_by_price.html", products=products)
