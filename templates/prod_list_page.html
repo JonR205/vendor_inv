@@ -3,6 +3,7 @@
 {% extends 'base.html' %}
 <html>
  {% block content %}
+  <!-- product table -->
 <head>
     <style>
     table,
@@ -26,6 +27,7 @@
         <th>Notes</th>
     </tr>
         {%for product in products%}
+        <!-- Table cells are links will add filter by links over time -->
         <tr>
             <td><a href="http://localhost:5000/prod_details{{ product.sku }}">{{ product.sku }}</a></td>
             <td><a href="http://localhost:5000/prod_details{{ product.sku }}">{{product.prod_name}}</a></td>

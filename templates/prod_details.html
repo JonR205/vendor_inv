@@ -1,8 +1,7 @@
-<!-- place holder product detail page -->
-
 {% extends 'base.html' %}
 <html>
 {% block content %}
+<!-- header styling for product table -->
 <head>
     <style>
     table,
@@ -14,6 +13,7 @@
 </head>
 
 <body>
+    <!-- product table -->
     <table style="width:100%">
         <tr>
             <th>SKU</th>
@@ -27,6 +27,7 @@
         </tr>
         
         <tr>
+            <!-- Table cells will be editable to update product DB -->
             <td><div contenteditable>{{ product.sku }}</div></td>
             <td><div contenteditable>{{product.prod_name}}</div></td>
             <td><div contenteditable>{{product.prood_description}}</div></td>
