@@ -10,21 +10,6 @@ app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///vendor.db"
 # app.run(debug=True)
 db = SQLAlchemy(app)
-# headings = (
-#     "sku",
-#     "Product Name",
-#     "Product Description",
-#     "Cost to Make",
-#     "Price",
-#     "Category",
-#     "Notes",
-# )
-
-# data = (
-#     ("Jon", "rhine", "3", "4", "5", "6", "7"),
-#     ("Jon", "rhine", "3", "4", "5", "6", "7"),
-#     ("Jon", "rhine", "3", "4", "5", "6", "7"),
-# )
 
 # DB table for products
 class Products(db.Model):
@@ -71,9 +56,6 @@ class Events(db.Model):
 
 
 # Routes for webpages
-# @app.route("/")
-# def hello():
-#     return render_template("home_page.html")
 
 
 @app.route("/", methods =['POST', 'GET'])
