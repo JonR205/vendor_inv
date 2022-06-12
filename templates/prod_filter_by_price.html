@@ -1,9 +1,6 @@
-<!-- place holder product display page -->
-
 {% extends 'base.html' %}
 <html>
 {% block content %}
-<!-- product table -->
 
 <head>
     <style>
@@ -16,6 +13,7 @@
 </head>
 
 <body>
+    <!-- product table -->
     <table style="width:100%">
         <tr>
             <th>SKU</th>
@@ -27,6 +25,7 @@
             <th>Quantity</th>
             <th>Notes</th>
         </tr>
+
         {%for product in products%}
         <!-- Table cells are links will add filter by links over time -->
         <tr>
@@ -42,6 +41,6 @@
         </tr>
     </table>
 </body>
-{% endblock %}
+{% endblock content %}
 
 </html>
