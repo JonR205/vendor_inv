@@ -1,17 +1,17 @@
 {% extends 'base.html' %}
 <html>
- {% block content %}
- <!-- form for adding new products to db -->
-<form action= "#" method="post">
+{% block content %}
+<!-- form for adding new products to db -->
+<form action="#" method="post">
     <p><label for="title">Enter information to add new Products</label></p>
-    <p><input type="text" name="sku" placeholder="Enter SKU number"></p>
-    <p><input type="text" name="Product Name" placeholder="Enter Product Name"></p>
-    <p><input type="text" name="Product Description" placeholder="Enter Product Description"></p>
-    <p><input type="float" name="Cost to Make" placeholder="Enter Cost to Make"></p>
-    <p><input type="float" name="Selling Price" placeholder="Enter Selling Price"></p>
-    <p><input type="text" name="Product Category" placeholder="Enter Product Category"></p>
-    <p><input type="intiger" name="Quantity" placeholder="Enter Quantity"></p>
-    <p><input type="text" name="Notes" placeholder="Enter Notes"></p>
-    <p><input type="submit" value="Submit"></p>
+    <p><input type="text" name="sku" placeholder="Enter SKU number" required></p>
+    <p><input type="text" name="Product Name" placeholder="Enter Product Name" required></p>
+    <p><input type="text" name="Product Description" placeholder="Enter Product Description" required></p>
+    <p><input type="number" step="any" name="Cost to Make" placeholder="Enter Cost to Make" required></p>
+    <p><input type="number" step="any" name="Selling Price" placeholder="Enter Selling Price" required></p>
+    <p><input type="text" name="Product Category" placeholder="Enter Product Category" required></p>
+    <p><input type="intiger" name="Quantity" placeholder="Enter Quantity" required></p>
+    <p><input type="text" name="Notes" placeholder="Enter Notes" required></p>
+    <p><input type="submit" value="Submit" required></p>
 </form>
 {% endblock %}

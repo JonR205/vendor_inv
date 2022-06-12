@@ -2,13 +2,14 @@
 <html>
 {% block content %}
 <!-- header styling for product table -->
+
 <head>
     <style>
-    table,
-    th,
-    td {
-        border: 1px solid black;
-    }
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
     </style>
 </head>
 
@@ -25,18 +26,33 @@
             <th>Quantity</th>
             <th>Notes</th>
         </tr>
-        
+
         <tr>
             <!-- Table cells will be editable to update product DB -->
-            <td><div contenteditable>{{ product.sku }}</div></td>
-            <td><div contenteditable>{{product.prod_name}}</div></td>
-            <td><div contenteditable>{{product.prood_description}}</div></td>
-            <td><div contenteditable>{{product.cost_to_make}}</div></td>
-            <td><div contenteditable>{{product.price}}</div></td>
-            <td><div contenteditable>{{product.category}}</div></td>
-            <td><div contenteditable>{{product.prood_notes}}</div></td>
+            <td>
+                <div contenteditable>{{ product.sku }}</div>
+            </td>
+            <td>
+                <div contenteditable>{{product.prod_name}}</div>
+            </td>
+            <td>
+                <div contenteditable>{{product.prood_description}}</div>
+            </td>
+            <td>
+                <div contenteditable>{{product.cost_to_make}}</div>
+            </td>
+            <td>
+                <div contenteditable>{{product.price}}</div>
+            </td>
+            <td>
+                <div contenteditable>{{product.category}}</div>
+            </td>
+            <td>
+                <div contenteditable>{{product.prood_notes}}</div>
+            </td>
         </tr>
     </table>
 </body>
 {% endblock content %}
+
 </html>

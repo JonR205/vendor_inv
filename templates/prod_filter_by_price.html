@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
 <html>
 {% block content %}
+
 <head>
     <style>
-    table,
-    th,
-    td {
-        border: 1px solid black;
-    }
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
     </style>
 </head>
 
@@ -24,7 +25,7 @@
             <th>Quantity</th>
             <th>Notes</th>
         </tr>
-        
+
         {%for product in products%}
         <!-- Table cells are links will add filter by links over time -->
         <tr>
@@ -41,4 +42,5 @@
     </table>
 </body>
 {% endblock content %}
+
 </html>
