@@ -13,8 +13,7 @@ db = SQLAlchemy(app)
 
 # DB table for products
 class Products(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    sku = db.Column(db.Integer, unique=True, nullable=False)
+    sku = db.Column(db.Integer, unique=True, nullable=False, primary_key=True)
     prod_name = db.Column(db.String(100), unique=True, nullable=False)
     prood_description = db.Column(db.String(500), unique=True, nullable=False)
     cost_to_make = db.Column(db.Float(), unique=False, nullable=False)
@@ -25,7 +24,7 @@ class Products(db.Model):
 
     def __init__(
         self,
-        sku,
+        # sku,
         prod_name,
         prood_description,
         cost_to_make,
@@ -34,7 +33,7 @@ class Products(db.Model):
         prood_notes,
         qty,
     ) -> None:
-        self.sku = sku
+        # self.sku = sku
         self.prod_name = prod_name
         self.prood_description = prood_description
         self.cost_to_make = cost_to_make
@@ -85,7 +84,7 @@ def prod_details(sku_num):
 def sku_search():
     if request.method == "POST":
         np = Products(
-            sku=request.form["sku"],
+            # sku=request.form["sku"],
             prod_name=request.form["Product Name"],
             prood_description=request.form["Product Description"],
             cost_to_make=request.form["Cost to Make"],
