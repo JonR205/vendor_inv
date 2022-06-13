@@ -100,7 +100,13 @@ def sku_search():
         return render_template("new_product_page.html")
 
 
-@app.route("/prod_filter_by_price<price_num>", methods=["GET", "POST"])
+@app.route("/prod_filter_by_price_<price_num>", methods=["GET", "POST"])
 def prod_filter_by_price(price_num):
     products = Products.query.filter_by(price=str(price_num)).all()
     return render_template("prod_filter_by_price.html", products=products)
+
+
+@app.route("/prod_filter_by_category_<category>", methods=["GET", "POST"])
+def prod_filter_by_category(category):
+    products = Products.query.filter_by(category=str(category)).all()
+    return render_template("prod_filter_by_category.html", products=products)
