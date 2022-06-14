@@ -13,8 +13,7 @@ db = SQLAlchemy(app)
 
 # DB table for products
 class Products(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    sku = db.Column(db.Integer, unique=True, nullable=False)
+    sku = db.Column(db.Integer, unique=True, nullable=False, primary_key=True)
     prod_name = db.Column(db.String(100), unique=True, nullable=False)
     prood_description = db.Column(db.String(500), unique=True, nullable=False)
     cost_to_make = db.Column(db.Float(), unique=False, nullable=False)
@@ -25,7 +24,7 @@ class Products(db.Model):
 
     def __init__(
         self,
-        sku,
+        # sku,
         prod_name,
         prood_description,
         cost_to_make,
@@ -34,7 +33,7 @@ class Products(db.Model):
         prood_notes,
         qty,
     ) -> None:
-        self.sku = sku
+        # self.sku = sku
         self.prod_name = prod_name
         self.prood_description = prood_description
         self.cost_to_make = cost_to_make
@@ -64,7 +63,7 @@ class Events(db.Model):
 
 # Routes for webpages
 
-
+# Home page lists all products in table
 @app.route("/", methods=["POST", "GET"])
 def prod_list():
     products = Products.query.order_by(Products.sku)
@@ -75,17 +74,19 @@ def prod_list():
         return render_template("prod_list_page.html", products=products)
 
 
+# Product detail page shows single SKU and all details
 @app.route("/prod_details<sku_num>", methods=["GET", "POST"])
 def prod_details(sku_num):
     product = Products.query.filter_by(sku=str(sku_num)).first()
     return render_template("prod_details.html", product=product)
 
 
+# Page to add new product to Products table
 @app.route("/new_product_page", methods=["POST", "GET"])
 def sku_search():
     if request.method == "POST":
         np = Products(
-            sku=request.form["sku"],
+            # sku=request.form["sku"],
             prod_name=request.form["Product Name"],
             prood_description=request.form["Product Description"],
             cost_to_make=request.form["Cost to Make"],
@@ -101,7 +102,15 @@ def sku_search():
         return render_template("new_product_page.html")
 
 
-@app.route("/prod_filter_by_price<price_num>", methods=["GET", "POST"])
+# Page is a view of like priced items accessed by clicking on price from any product list
+@app.route("/prod_filter_by_price_<price_num>", methods=["GET", "POST"])
 def prod_filter_by_price(price_num):
     products = Products.query.filter_by(price=str(price_num)).all()
     return render_template("prod_filter_by_price.html", products=products)
+
+
+# Page is a view of items with same category accessed by clicking on price from any product list
+@app.route("/prod_filter_by_category_<category>", methods=["GET", "POST"])
+def prod_filter_by_category(category):
+    products = Products.query.filter_by(category=str(category)).all()
+    return render_template("prod_filter_by_category.html", products=products)
