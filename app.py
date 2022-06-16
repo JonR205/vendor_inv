@@ -1,10 +1,12 @@
+from cmath import e
 from distutils.log import debug
 from email.policy import default
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from sqlalchemy import DateTime
-
+import requests
+from datetime import datetime, date
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///vendor.db"
@@ -48,14 +50,34 @@ class Products(db.Model):
 
 # DB table for Events
 class Events(db.Model):
+    # __tablename__ = "events"
     id = db.Column(db.Integer, primary_key=True)
     event_name = db.Column(db.String(100), unique=True, nullable=False)
     event_description = db.Column(db.String(500), unique=True, nullable=False)
     event_start_date = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
-    event_end_date = db.Column(db.String(20), unique=True, nullable=False)
-    products_bought = db.Column(db.Integer, unique=True, nullable=True)
+    event_end_date = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+    products_brought = db.Column(db.Integer, unique=True, nullable=True)
     products_sold = db.Column(db.Integer, unique=True, nullable=True)
     event_notes = db.Column(db.String(1000), unique=False, nullable=False)
+
+    def __init__(
+        self,
+        event_name,
+        event_description,
+        event_start_date,
+        event_end_date,
+        products_brought,
+        products_sold,
+        event_notes,
+    ) -> None:
+        # self.sku = sku
+        self.event_name = event_name
+        self.event_description = event_description
+        self.event_start_date = event_start_date
+        self.event_end_date = event_end_date
+        self.products_brought = products_brought
+        self.products_sold = products_sold
+        self.event_notes = event_notes
 
     def __repr__(self):
         return f"Event Name: {self.event_name} Description: {self.event_description} Start Datew: {self.event_start_date} End Date: {self.event_end_date} Products Brought: {self.products_bought} Products Sold: {self.products_sold} Notes: {self.event_notes}"
@@ -114,3 +136,42 @@ def prod_filter_by_price(price_num):
 def prod_filter_by_category(category):
     products = Products.query.filter_by(category=str(category)).all()
     return render_template("prod_filter_by_category.html", products=products)
+
+
+# Page to add new product to Products table
+@app.route("/new_event_page", methods=["POST", "GET"])
+def new_event():
+    if request.method == "POST":
+        # print(response.content)
+        ne = Events(
+            event_name=request.form["Event Name"],
+            event_description=request.form["Event Description"],
+            event_start_date=datetime.strptime(
+                request.form["Event Start Date"], "%Y-%m-%d"
+            ),
+            event_end_date=datetime.strptime(
+                request.form["Event End Date"], "%Y-%m-%d"
+            ),
+            products_brought=request.form["Products Brought"],
+            products_sold=request.form["Products Sold"],
+            event_notes=request.form["Event Notes"],
+        )
+        db.session.add(ne)
+        db.session.commit()
+        return redirect(url_for("prod_list"))
+    else:
+        return render_template("new_event_page.html")
+
+
+# Event lists all events in table
+@app.route("/events_list_page", methods=["POST", "GET"])
+def event_list():
+    events = Events.query.order_by(Events.id)
+    # if request.method == "POST":
+    #     sku_num = request.form["sku"]
+    #     return redirect(url_for("prod_details", sku_num=sku_num))
+    # else:
+    return render_template("event_list_page.html", events=events)
+
+
+# e1 = Events(event_name = "JOn's horror house", event_description="Thing's in Jon's basemant", event_start_date ="2022-07-04", event_end_date = "2022-07-07", products_brought=None, products_sold=None, event_notes="Enter at your own risk")

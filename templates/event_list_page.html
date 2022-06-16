@@ -1,0 +1,47 @@
+<!-- place holder product display page -->
+
+{% extends 'base.html' %}
+<html>
+{% block content %}
+<!-- event table -->
+
+<head>
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <table style="width:100%">
+        <tr>
+            <th>Event Name</th>
+            <th>Event Description</th>
+            <th>Event Start date</th>
+            <th>Event End Date</th>
+            <th>Products Brought</th>
+            <th>Products Sold</th>
+            <th>Event Notes</th>
+        </tr>
+        {%for event in events%}
+        <!-- Table cells are links will add filter by links over time -->
+        <tr>
+            <td><a href="http://localhost:5000/prod_details{{ event.name }}">{{ event.event_name }}</a></td>
+            <td><a href="http://localhost:5000/prod_details{{  event.name }}">{{event.event_description}}</a></td>
+            <td><a href="http://localhost:5000/prod_details{{  event.name }}">{{event.event_start_date}}</a></td>
+            <td><a href="http://localhost:5000/prod_details{{  event.name }}">{{event.event_end_date}}</a></td>
+            <td><a href="http://localhost:5000/prod_filter_by_price_{{ event.name }}">{{event.products_brought}}</a>
+            </td>
+            <td><a href="http://localhost:5000/prod_filter_by_category_{{ event.name }}">{{event.event_sold}}</a>
+            </td>
+            <td><a href="http://localhost:5000/prod_details{{  event.name }}">{{event.event_notes}}</a></td>
+            {%endfor%}
+        </tr>
+    </table>
+</body>
+{% endblock %}
+
+</html>
