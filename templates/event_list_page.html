@@ -29,15 +29,13 @@
         {%for event in events%}
         <!-- Table cells are links will add filter by links over time -->
         <tr>
-            <td><a href="http://localhost:5000/prod_details{{ event.name }}">{{ event.event_name }}</a></td>
-            <td><a href="http://localhost:5000/prod_details{{  event.name }}">{{event.event_description}}</a></td>
-            <td><a href="http://localhost:5000/prod_details{{  event.name }}">{{event.event_start_date}}</a></td>
-            <td><a href="http://localhost:5000/prod_details{{  event.name }}">{{event.event_end_date}}</a></td>
-            <td><a href="http://localhost:5000/prod_filter_by_price_{{ event.name }}">{{event.products_brought}}</a>
-            </td>
-            <td><a href="http://localhost:5000/prod_filter_by_category_{{ event.name }}">{{event.event_sold}}</a>
-            </td>
-            <td><a href="http://localhost:5000/prod_details{{  event.name }}">{{event.event_notes}}</a></td>
+            <td><a href="http://localhost:5000/event_details{{ event.id }}">{{ event.event_name }}</a></td>
+            <td><a href="http://localhost:5000/event_details{{  event.id }}">{{event.event_description}}</a></td>
+            <td><a href="http://localhost:5000/event_details{{  event.id }}">{{event.event_start_date}}</a></td>
+            <td><a href="http://localhost:5000/event_details{{  event.id }}">{{event.event_end_date}}</a></td>
+            <td><a href="http://localhost:5000/event_details{{ event.id }}">{{event.products_brought}}</a></td>
+            <td><a href="http://localhost:5000/event_details{{ event.id }}">{{event.event_sold}}</a></td>
+            <td><a href="http://localhost:5000/event_details{{  event.id }}">{{event.event_notes}}</a></td>
             {%endfor%}
         </tr>
     </table>
