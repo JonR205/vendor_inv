@@ -96,11 +96,15 @@ def prod_list():
         return render_template("prod_list_page.html", products=products)
 
 
-# Product detail page shows single SKU and all details
-@app.route("/prod_details<sku_num>", methods=["GET", "POST"])
-def prod_details(sku_num):
-    product = Products.query.filter_by(sku=str(sku_num)).first()
-    return render_template("prod_details.html", product=product)
+# Event lists all events in table
+@app.route("/events_list_page", methods=["POST", "GET"])
+def event_list():
+    events = Events.query.order_by(Events.id)
+    # if request.method == "POST":
+    #     sku_num = request.form["sku"]
+    #     return redirect(url_for("prod_details", sku_num=sku_num))
+    # else:
+    return render_template("event_list_page.html", events=events)
 
 
 # Page to add new product to Products table
@@ -124,21 +128,6 @@ def sku_search():
         return render_template("new_product_page.html")
 
 
-# Page is a view of like priced items accessed by clicking on price from any product list
-@app.route("/prod_filter_by_price_<price_num>", methods=["GET", "POST"])
-def prod_filter_by_price(price_num):
-    products = Products.query.filter_by(price=str(price_num)).all()
-    return render_template("prod_filter_by_price.html", products=products)
-
-
-# Page is a view of items with same category accessed by clicking on price from any product list
-@app.route("/prod_filter_by_category_<category>", methods=["GET", "POST"])
-def prod_filter_by_category(category):
-    products = Products.query.filter_by(category=str(category)).all()
-    return render_template("prod_filter_by_category.html", products=products)
-
-
-# Page to add new product to Products table
 @app.route("/new_event_page", methods=["POST", "GET"])
 def new_event():
     if request.method == "POST":
@@ -163,15 +152,32 @@ def new_event():
         return render_template("new_event_page.html")
 
 
-# Event lists all events in table
-@app.route("/events_list_page", methods=["POST", "GET"])
-def event_list():
-    events = Events.query.order_by(Events.id)
-    # if request.method == "POST":
-    #     sku_num = request.form["sku"]
-    #     return redirect(url_for("prod_details", sku_num=sku_num))
-    # else:
-    return render_template("event_list_page.html", events=events)
+# Page is a view of like priced items accessed by clicking on price from any product list
+@app.route("/prod_filter_by_price_<price_num>", methods=["GET", "POST"])
+def prod_filter_by_price(price_num):
+    products = Products.query.filter_by(price=str(price_num)).all()
+    return render_template("prod_filter_by_price.html", products=products)
 
 
-# e1 = Events(event_name = "JOn's horror house", event_description="Thing's in Jon's basemant", event_start_date ="2022-07-04", event_end_date = "2022-07-07", products_brought=None, products_sold=None, event_notes="Enter at your own risk")
+# Page is a view of items with same category accessed by clicking on price from any product list
+@app.route("/prod_filter_by_category_<category>", methods=["GET", "POST"])
+def prod_filter_by_category(category):
+    products = Products.query.filter_by(category=str(category)).all()
+    return render_template("prod_filter_by_category.html", products=products)
+
+
+# Page to add new product to Products table
+
+
+# Event detail page shows single event and all details
+@app.route("/event_details<id_num>", methods=["GET", "POST"])
+def event_details(id_num):
+    event = Events.query.filter_by(id=str(id_num)).first()
+    return render_template("event_details.html", event=event)
+
+
+# Product detail page shows single SKU and all details
+@app.route("/prod_details<sku_num>", methods=["GET", "POST"])
+def prod_details(sku_num):
+    product = Products.query.filter_by(sku=str(sku_num)).first()
+    return render_template("prod_details.html", product=product)
