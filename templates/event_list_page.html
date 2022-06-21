@@ -22,8 +22,8 @@
             <th>Event Description</th>
             <th>Event Start date</th>
             <th>Event End Date</th>
-            <th>Products Brought</th>
-            <th>Products Sold</th>
+            <!-- <th>Products Brought</th>
+            <th>Products Sold</th> -->
             <th>Event Notes</th>
         </tr>
         {%for event in events%}
@@ -33,8 +33,8 @@
             <td><a href="http://localhost:5000/event_details{{  event.id }}">{{event.event_description}}</a></td>
             <td><a href="http://localhost:5000/event_details{{  event.id }}">{{event.event_start_date}}</a></td>
             <td><a href="http://localhost:5000/event_details{{  event.id }}">{{event.event_end_date}}</a></td>
-            <td><a href="http://localhost:5000/event_details{{ event.id }}">{{event.products_brought}}</a></td>
-            <td><a href="http://localhost:5000/event_details{{ event.id }}">{{event.event_sold}}</a></td>
+            <!-- <td><a href="http://localhost:5000/event_details{{ event.id }}">{{event.products_brought}}</a></td>
+            <td><a href="http://localhost:5000/event_details{{ event.id }}">{{event.event_sold}}</a></td> -->
             <td><a href="http://localhost:5000/event_details{{  event.id }}">{{event.event_notes}}</a></td>
             {%endfor%}
         </tr>
