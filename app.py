@@ -62,6 +62,7 @@ class Events(db.Model):
     # products_brought = db.Column(db.Integer, unique=True, nullable=True)
     # products_sold = db.Column(db.Integer, unique=True, nullable=True)
     event_notes = db.Column(db.String(1000), unique=False, nullable=False)
+    event_event_inventory = db.relationship("EventInventory", backref="events")
 
     def __init__(
         self,
@@ -83,7 +84,7 @@ class Events(db.Model):
         self.event_notes = event_notes
 
     def __repr__(self):
-        return f"Event Name: {self.event_name} Description: {self.event_description} Start Datew: {self.event_start_date} End Date: {self.event_end_date} Notes: {self.event_notes}"
+        return f"Event Name: {self.event_name} Description: {self.event_description} Start Datew: {self.event_start_date} End Date: {self.event_end_date} Notes: {self.event_notes}  event_inventory: {self.event_event_inventory}"
 
 
 # DB table for Inventory Brought to Events
@@ -92,20 +93,16 @@ class EventInventory(db.Model):
     sku_num = db.Column(db.Integer, db.ForeignKey("products.sku"))
     qty_brought = db.Column(db.Integer)
     qty_sold = db.Column(db.Integer)
-    # event_id
+    event_name = db.Column(db.Integer, db.ForeignKey("events.event_name"))
 
-    def __init__(
-        self,
-        sku_num,
-        qty_brought,
-        qty_sold,
-    ) -> None:
+    def __init__(self, sku_num, qty_brought, qty_sold, event_name) -> None:
         self.sku_num = sku_num
         self.qty_brought = qty_brought
         self.qty_sold = qty_sold
+        self.event_name = event_name
 
     def __repr__(self):
-        return f"ID: {self.event_inv_id} SKU: {self.sku_num} Qty Brought: {self.qty_brought} Qty sold: {self.qty_sold}"
+        return f"ID: {self.event_inv_id} SKU: {self.sku_num} Qty Brought: {self.qty_brought} Qty sold: {self.qty_sold} Event Name: {self.event_name}"
 
 
 # Routes for webpages
@@ -132,9 +129,10 @@ def event_list():
 @app.route("/event_inventory_list_page", methods=["POST", "GET"])
 def event_inventory_list():
     products = Products.query.order_by(Products.sku)
+    events = Events.query.order_by(Events.id)
     return render_template(
         "event_inventory_list_page.html",
-        # event_inventorys=event_inventorys,
+        events=events,
         products=products,
     )
 
@@ -167,6 +165,7 @@ def event_inv_crteate():
             sku_num=request.form["SKU Number"],
             qty_brought=request.form["QTY Brought"],
             qty_sold=request.form["Event QTY Sold"],
+            event_name=request.form["Event Name"],
         )
         # nei = EventInventory(sku_num=1,qty_brought=2,qty_sold='')
         db.session.add(nei)
