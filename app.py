@@ -220,7 +220,13 @@ def prod_filter_by_category(category):
 @app.route("/event_details<id_num>", methods=["GET", "POST"])
 def event_details(id_num):
     event = Events.query.filter_by(id=str(id_num)).first()
-    return render_template("event_details.html", event=event)
+    events_inventory = EventInventory.query.filter_by(
+        event_name=str(event.event_name)
+    ).all()
+
+    return render_template(
+        "event_details.html", event=event, events_inventory=events_inventory
+    )
 
 
 # Product detail page shows single SKU and all details

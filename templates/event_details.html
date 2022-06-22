@@ -56,7 +56,30 @@
             </td>
         </tr>
     </table>
+
+    <!-- product table -->
+    <table style="width:100%">
+        <tr>
+            <th>Show SKU Number</th>
+            <th>QTY Brought</th>
+            <th>QTY Sold</th>
+
+        </tr>
+
+
+
+        {%for e in events_inventory%}
+        <!-- Table cells are links will add filter by links over time -->
+        <tr>
+            <td><a>{{e.sku_num}}</a></td>
+            <td><a>{{e.qty_brought}}</a></td>
+            <td><a>{{e.qty_sold}}</a></td>
+            {%endfor%}
+
+            {% endblock content %}
+
+
 </body>
-{% endblock content %}
+
 
 </html>
