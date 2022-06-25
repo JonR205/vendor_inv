@@ -1,5 +1,8 @@
 <!doctype html>
-<title>{% block title %}{% endblock %} - Flaskr</title>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    </head>
 <nav>
     <!-- product search bar -->
     <form action="http://localhost:5000" method="post">
@@ -16,16 +19,21 @@
     <form action="http://localhost:5000//new_event_inventory_page">
         <input type="submit" value="Add New Event Inventory" />
     </form>
-
+    <form action="http://localhost:5000//modal">
+        <input type="submit" value="modal test" />
+    </form>
 
 
 </nav>
-
-{%block head%}
-{%endblock%}
+<body>
 
 {%block body%}
 {%endblock%}
 
 {% block content %}
 {%endblock%}
+
+{% block modal %}{% endblock %}
+{% block script %}{% endblock %}
+</body>
+</html>
