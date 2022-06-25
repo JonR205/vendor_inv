@@ -234,3 +234,8 @@ def event_details(id_num):
 def prod_details(sku_num):
     product = Products.query.filter_by(sku=str(sku_num)).first()
     return render_template("prod_details.html", product=product)
+
+
+@app.route("/modal", methods=["GET", "POST"])
+def modal():
+    return render_template("modal.html")
