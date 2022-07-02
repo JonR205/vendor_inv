@@ -93,7 +93,7 @@ class EventInventory(db.Model):
     sku_num = db.Column(db.Integer, db.ForeignKey("products.sku"))
     qty_brought = db.Column(db.Integer)
     qty_sold = db.Column(db.Integer)
-    event_name = db.Column(db.Integer, db.ForeignKey("events.event_name"))
+    event_name = db.Column(db.String(500), db.ForeignKey("events.event_name"))
 
     def __init__(self, sku_num, qty_brought, qty_sold, event_name) -> None:
         self.sku_num = sku_num
@@ -130,10 +130,12 @@ def event_list():
 def event_inventory_list():
     products = Products.query.order_by(Products.sku)
     events = Events.query.order_by(Events.id)
+    events_inventory = EventInventory.query.order_by(EventInventory.event_inv_id)
     return render_template(
         "event_inventory_list_page.html",
         events=events,
         products=products,
+        events_inventory=events_inventory,
     )
 
 
@@ -236,6 +238,26 @@ def prod_details(sku_num):
     return render_template("prod_details.html", product=product)
 
 
-@app.route("/modal", methods=["GET", "POST"])
-def modal():
-    return render_template("modal.html")
+@app.route(
+    "/modal_<event_inv_id_num>_<sku_num_num>_<event_name_name>", methods=["GET", "POST"]
+)
+def modal(event_inv_id_num, sku_num_num, event_name_name):
+    ei = EventInventory.query.filter_by(event_inv_id=str(event_inv_id_num))
+    if request.method == "POST":
+        print(f" log {request.form}")
+        if request.form["QTY Brought"]:
+            ei.update(dict(qty_brought=int(request.form["QTY Brought"])))
+        if request.form["Event QTY Sold"]:
+            ei.update(dict(qty_sold=int(request.form["Event QTY Sold"])))
+
+        # ei.sku_num = ei.sku_num
+        # #     ei.event_name = (str(event_name_name),)
+        # #     if request.form["QTY Brought"]:
+        # #         ei.qty_brought = (int(request.form["QTY Brought"]),)
+        # #     else:
+        # #         ei.qty_brought = ei.qty_brought
+        # ei.qty_sold = (int(request.form["Event QTY Sold"]),)
+        db.session.commit()
+        return redirect(url_for("event_list"))
+    else:
+        return render_template("modal.html", ei=ei)
