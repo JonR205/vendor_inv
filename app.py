@@ -169,7 +169,9 @@ def event_inv_crteate():
             qty_sold=request.form["Event QTY Sold"],
             event_name=request.form["Event Name"],
         )
-        # nei = EventInventory(sku_num=1,qty_brought=2,qty_sold='')
+        pu = Products.query.filter_by(sku=str(request.form["SKU Number"]))
+        # puq = pu.qty
+        pu.update(dict(qty=request.form["QTY Brought"]))
         db.session.add(nei)
         db.session.commit()
         return redirect(url_for("event_inventory_list"))
@@ -238,15 +240,18 @@ def prod_details(sku_num):
     return render_template("prod_details.html", product=product)
 
 
-@app.route(
-    "/modal_<event_inv_id_num>_<sku_num_num>_<event_name_name>", methods=["GET", "POST"]
-)
-def modal(event_inv_id_num, sku_num_num, event_name_name):
+@app.route("/modal_<event_inv_id_num>_<sku_num_num>", methods=["GET", "POST"])
+def modal(event_inv_id_num, sku_num_num):
     ei = EventInventory.query.filter_by(event_inv_id=str(event_inv_id_num))
     if request.method == "POST":
         print(f" log {request.form}")
         if request.form["QTY Brought"]:
             ei.update(dict(qty_brought=int(request.form["QTY Brought"])))
+            pu = Products.query.filter_by(sku=str(sku_num_num))
+            puq = pu.qty
+            print(f"PU: {pu}")
+            pu.update(dict(qty=request.form["QTY Brought"]))
+
         if request.form["Event QTY Sold"]:
             ei.update(dict(qty_sold=int(request.form["Event QTY Sold"])))
 
