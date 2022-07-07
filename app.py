@@ -243,14 +243,15 @@ def prod_details(sku_num):
 @app.route("/modal_<event_inv_id_num>_<sku_num_num>", methods=["GET", "POST"])
 def modal(event_inv_id_num, sku_num_num):
     ei = EventInventory.query.filter_by(event_inv_id=str(event_inv_id_num))
+    pu_qty = Products.query.filter_by(sku=sku_num_num).first()
+    pu_qty2 = pu_qty.qty
     if request.method == "POST":
         print(f" log {request.form}")
         if request.form["QTY Brought"]:
             ei.update(dict(qty_brought=int(request.form["QTY Brought"])))
             pu = Products.query.filter_by(sku=str(sku_num_num))
-            puq = pu.qty
             print(f"PU: {pu}")
-            pu.update(dict(qty=request.form["QTY Brought"]))
+            pu.update(dict(qty=pu_qty2 - int(request.form["QTY Brought"])))
 
         if request.form["Event QTY Sold"]:
             ei.update(dict(qty_sold=int(request.form["Event QTY Sold"])))
