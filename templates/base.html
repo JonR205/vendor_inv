@@ -1,8 +1,9 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-    </head>
+
+<head>
+    <meta charset="UTF-8">
+</head>
 <nav>
     <!-- product search bar -->
     <form action="http://localhost:5000" method="post">
@@ -10,30 +11,22 @@
         <input type="text" name="sku" placeholder="Enter SKU number">
         <input type="submit" value="Submit">
     </form>
-    <form action="http://localhost:5000/new_product_page">
-        <input type="submit" value="Add New Product" />
-    </form>
-    <form action="http://localhost:5000/new_event_page">
-        <input type="submit" value="Add New Event" />
-    </form>
-    <form action="http://localhost:5000//new_event_inventory_page">
-        <input type="submit" value="Add New Event Inventory" />
-    </form>
-    <form action="http://localhost:5000//modal">
-        <input type="submit" value="modal test" />
-    </form>
+    <form action="http://localhost:5000/"> <input type="submit" value="Home" /> </form>
+    <form action="http://events_list_page/"> <input type="submit" value="Events" /> </form>
 
 
 </nav>
+
 <body>
 
-{%block body%}
-{%endblock%}
+    {%block body%}
+    {%endblock%}
 
-{% block content %}
-{%endblock%}
+    {% block content %}
+    {%endblock%}
 
-{% block modal %}{% endblock %}
-{% block script %}{% endblock %}
+    {% block modal %}{% endblock %}
+    {% block script %}{% endblock %}
 </body>
+
 </html>
