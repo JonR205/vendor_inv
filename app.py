@@ -227,10 +227,25 @@ def event_details(id_num):
     events_inventory = EventInventory.query.filter_by(
         event_name=str(event.event_name)
     ).all()
-
-    return render_template(
-        "event_details.html", event=event, events_inventory=events_inventory
-    )
+    if request.method == "POST" and request.form["close_inventory"]:
+        for ei in events_inventory:
+            pu_qty = Products.query.filter_by(sku=ei.sku_num).first()
+            current_qty = pu_qty.qty
+            ei_qty = EventInventory.query.filter_by(
+                event_inv_id=str(ei.event_inv_id)
+            ).first()
+            ei_current_qty = ei_qty.qty_brought
+            ei_qty_sold = ei_qty.qty_sold
+            if ei_qty_sold:
+                math = int(ei_current_qty) - int(ei_qty_sold)
+                pu = Products.query.filter_by(sku=str(ei.sku_num))
+                pu.update(dict(qty=current_qty + math))
+                db.session.commit()
+        return redirect(url_for("event_list"))
+    else:
+        return render_template(
+            "event_details.html", event=event, events_inventory=events_inventory
+        )
 
 
 # Product detail page shows single SKU and all details
