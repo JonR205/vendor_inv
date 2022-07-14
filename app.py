@@ -284,3 +284,26 @@ def modal(event_inv_id_num, sku_num_num):
         return redirect(url_for("event_list"))
     else:
         return render_template("modal.html", ei=ei, ei_current_qty=ei_current_qty)
+
+
+# page to update product details
+@app.route("/prod_update<sku_num>", methods=["GET", "POST"])
+def prod_update(sku_num):
+    pu_curr = Products.query.filter_by(sku=sku_num).first()
+    up = Products.query.filter_by(sku=sku_num)
+    if request.method == "POST":
+        up.update(
+            dict(
+                prod_name=request.form["Product Name"],
+                prood_description=request.form["Product Description"],
+                cost_to_make=request.form["Cost to Make"],
+                price=request.form["Selling Price"],
+                category=request.form["Product Category"],
+                prood_notes=request.form["Notes"],
+                qty=request.form["Quantity"],
+            )
+        )
+        db.session.commit()
+        return redirect(url_for("prod_list"))
+    else:
+        return render_template("prod_update.html", pu_curr=pu_curr)
