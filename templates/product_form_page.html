@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+<html>
+{% block content %}
+<!-- form for adding new products to db -->
+<form class="row justify-content-center g-3 pt-2 ps-4 pe-4" method="post">
+    <div class="col-md-3">
+        <label for="productName" class="form-label">Product Name</label>
+        <input type="text" class="form-control" name="productName" id="productName" value="{{pu_curr.prod_name}}"
+               required>
+    </div>
+    <div class="col-md-2">
+        <label for="productCategory" class="form-label">Product Category</label>
+        <input type="text" class="form-control" name="productCategory" id="productCategory" value="{{pu_curr.category}}"
+               required>
+    </div>
+    <div class="col-md-1">
+        <label for="productCost" class="form-label">Cost to Make</label>
+        <input type="number" step="any" class="form-control" name="productCost" id="productCost"
+               value="{{pu_curr.cost_to_make}}" required>
+    </div>
+    <div class="col-md-1">
+        <label for="productPrice" class="form-label">Selling Price</label>
+        <input type="number" step="any" class="form-control" name="productPrice" id="productPrice"
+               value="{{pu_curr.price}}" required>
+    </div>
+    <div class="col-md-1">
+        <label for="productQuantity" class="form-label">Quantity</label>
+        <input type="number" class="form-control" name="productQuantity" id="productQuantity" value="{{pu_curr.qty}}"
+               required>
+    </div>
+    <div class="col-8">
+        <label for="productDescription" class="form-label">Product Description</label>
+        <textarea class="form-control" name="productDescription" id="productDescription" rows="2" required>{{pu_curr.prood_description}}</textarea>
+    </div>
+    <div class="col-8">
+        <label for="productNotes" class="form-label">Product Notes</label>
+        <textarea class="form-control" name="productNotes" id="productNotes" rows="3">{{pu_curr.prood_notes}}</textarea>
+    </div>
+
+    <div class="col-8">
+        <button type="submit" class="btn btn-primary">
+            {{ 'Create' if pu_curr is none else 'Update' }}
+        </button>
+    </div>
+</form>
+
+{% endblock %}
