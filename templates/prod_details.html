@@ -25,6 +25,7 @@
             <th>Product Category</th>
             <th>Quantity</th>
             <th>Notes</th>
+            <th>Update</th>
         </tr>
 
         <tr>
@@ -48,8 +49,18 @@
                 <div contenteditable>{{product.category}}</div>
             </td>
             <td>
+                <div contenteditable>{{product.qty}}</div>
+            </td>
+            <td>
                 <div contenteditable>{{product.prood_notes}}</div>
             </td>
+            <td>
+                <form action="/prod_update{{product.sku}}">
+                    <input type="submit" value="Update products" />
+                </form>
+            </td>
+
+
         </tr>
     </table>
 </body>

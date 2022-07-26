@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+<html>
+{% block content %}
+<!-- form for adding new products to db -->
+<form action="#" method="post">
+    <p><label for="title">New Information Will Overwrite Current Informatio</label></p>
+    <p><input type="text" name="Product Name" value="{{pu_curr.prod_name}}" required></p>
+    <p><input type="text" name="Product Description" value="{{pu_curr.prood_description}}" required></p>
+    <p><input type="number" step="any" name="Cost to Make" value="{{pu_curr.cost_to_make}}" required></p>
+    <p><input type="number" step="any" name="Selling Price" value="{{pu_curr.price}}" required></p>
+    <p><input type="text" name="Product Category" value="{{pu_curr.category}}" required></p>
+    <p><input type="intiger" name="Quantity" value="{{pu_curr.qty}}" required></p>
+    <p><input type="text" name="Notes" value="{{pu_curr.prood_notes}}" required></p>
+    <p><input type="submit" value="Submit" required></p>
+</form>
+{% endblock %}

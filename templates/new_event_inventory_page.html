@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+<html>
+{% block content %}
+<!-- form for adding new event inv items to db -->
+<form action="#" method="post">
+    <p><label for="title">Enter information to add Products to bring to a show</label></p>
+    <p><input type="intiger" name="SKU Number" placeholder="Enter SKU Number" required></p>
+    <p><input type="text" name="Event Name" placeholder="Enter Event Name" required></p>
+    <p><input type="intiger" name="QTY Brought" placeholder="Enter QTY Brought to Event " required></p>
+    <p><input type="intiger" name="Event QTY Sold" placeholder="Enter QTY Sold at Event"></p>
+    <p><input type="submit" value="Submit" required></p>
+</form>
+{% endblock %}
