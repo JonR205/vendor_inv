@@ -1,16 +1,33 @@
 {% extends 'base.html' %}
 <html>
 {% block content %}
-<!-- form for adding new products to db -->
-<form action="#" method="post">
-    <p><label for="title">Enter information to add a new Event</label></p>
-    <p><input type="text" name="Event Name" placeholder="Enter Event Name" required></p>
-    <p><input type="text" name="Event Description" placeholder="Enter Event Description" required></p>
-    <p><input type="date" name="Event Start Date" placeholder="Enter Date Event Begins" required></p>
-    <p><input type="date" name="Event End Date" placeholder="Enter Date Event Ends" required></p>
-    <!-- <p><input type="text" name="Products Brought" placeholder="Enter Products Brought to Show"></p>
-    <p><input type="text" name="Products Sold" placeholder="Enter Products Sold Durring the Show"></p> -->
-    <p><input type="text" name="Event Notes" placeholder="Enter Notes about the Show"></p>
-    <p><input type="submit" value="Submit" required></p>
+<!-- form for adding new events to db -->
+<form class="row justify-content-center g-3 pt-2 ps-4 pe-4" method="post">
+    <div class="col-md-6">
+        <label for="eventName" class="form-label">Event Name</label>
+        <input type="text" class="form-control" name="eventName" id="eventName" required>
+    </div>
+    <div class="col-md-1">
+        <label for="startDate" class="form-label">Start Date</label>
+        <input type="date" step="any" class="form-control" name="eventStartDate" id="startDate" required>
+    </div>
+    <div class="col-md-1">
+        <label for="endDate" class="form-label">End Date</label>
+        <input type="date" step="any" class="form-control" name="eventEndDate" id="endDate" required>
+    </div>
+    <div class="col-8">
+        <label for="eventDescription" class="form-label">Event Description</label>
+        <textarea class="form-control" name="eventDescription" id="eventDescription" rows="2" required></textarea>
+    </div>
+    <div class="col-8">
+        <label for="eventNotes" class="form-label">Event Notes</label>
+        <textarea class="form-control" name="eventNotes" id="eventNotes" rows="3"></textarea>
+    </div>
+
+    <div class="col-8">
+        <button type="submit" class="btn btn-primary">
+            Create
+        </button>
+    </div>
 </form>
 {% endblock %}

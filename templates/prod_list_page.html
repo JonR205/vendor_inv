@@ -4,50 +4,64 @@
 <html>
 {% block content %}
 <!-- product table -->
-
-<head>
-    <style>
-        table,
-        th,
-        td {
-            border: 1px solid black;
-        }
-    </style>
-</head>
-
 <body>
-    <table style="width:100%">
-        <tr>
-            <th>SKU</th>
-            <th>Product Name</th>
-            <th>Product Description</th>
-            <th>Cost to Make</th>
-            <th>Selling Price</th>
-            <th>Product Category</th>
-            <th>Quantity</th>
-            <th>Notes</th>
-        </tr>
-        {%for product in products%}
-        <!-- Table cells are links will add filter by links over time -->
-        <tr>
-            <td><a href="http://localhost:5000/prod_details{{ product.sku }}">{{ product.sku }}</a></td>
-            <td><a href="http://localhost:5000/prod_details{{ product.sku }}">{{product.prod_name}}</a></td>
-            <td><a href="http://localhost:5000/prod_details{{ product.sku }}">{{product.prood_description}}</a></td>
-            <td><a href="http://localhost:5000/prod_details{{ product.sku }}">{{product.cost_to_make}}</a></td>
-            <td><a href="http://localhost:5000/prod_filter_by_price_{{ product.price }}">{{product.price}}</a></td>
-            <td><a href="http://localhost:5000/prod_filter_by_category_{{ product.category }}">{{product.category}}</a>
-            </td>
-            <td><a href="http://localhost:5000/prod_details{{ product.sku }}">{{product.qty}}</a></td>
-            <td><a href="http://localhost:5000/prod_details{{ product.sku }}">{{product.prood_notes}}</a></td>
-            {%endfor%}
-        </tr>
-    </table>
+<table class="table table-borderless">
+    <tr>
+        <th>SKU</th>
+        <th>Product Name</th>
+        <th>Product Description</th>
+        <th>Cost to Make</th>
+        <th>Selling Price</th>
+        <th>Product Category</th>
+        <th>Quantity</th>
+    </tr>
+    {%for product in products%}
+    <!-- Table cells are links will add filter by links over time -->
+    <tr>
+        <td><a href="/prod_details{{ product.sku }}">{{ product.sku }}</a></td>
+        <td><a href="/prod_details{{ product.sku }}">{{product.prod_name}}</a></td>
+        <td><a href="/prod_details{{ product.sku }}">{{product.prood_description}}</a></td>
+        <td><a href="/prod_filter_by?filter_type=cost&pram={{product.cost_to_make}}">${{product.cost_to_make}}</a></td>
+        <td><a href="/prod_filter_by?filter_type=price&pram={{product.price}}">${{product.price}}</a></td>
+        <td><a href="/prod_filter_by?filter_type=category&pram={{product.category}}">{{product.category}}</a></td>
+        <td><a href="/prod_details{{ product.sku }}">{{product.qty}}</a></td>
+        <td>
+            <button type="button" class="btn btn-outline-danger btn-sm"
+                    data-bs-toggle="modal"
+                    data-bs-target="#deleteModal">X
+            </button>
+        </td>
 
-    <form action="http://localhost:5000/new_product_page">
-        <input type="submit" value="Add New Product" />
-    </form>
+        <!-- Delete Modal -->
+        <div class="modal fade" id="deleteModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Delete?</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to delete product?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <form method="post" action="">
+                            <input type="hidden" value="{{ product.sku }}" name="sku"/>
+                            <button type="submit" class="btn btn-primary">Delete</button>
+                        </form>
 
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        {%endfor%}
+    </tr>
+</table>
+
+<div class="sticky-bottom">
+    <a class="btn btn-primary" href="/new_product_page" role="button">Add New Product</a>
+</div>
 </body>
 {% endblock %}
 

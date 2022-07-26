@@ -3,89 +3,63 @@
 {% block content %}
 <!-- header styling for product table -->
 
-<head>
-    <style>
-        table,
-        th,
-        td {
-            border: 1px solid black;
-        }
-    </style>
-</head>
-
 <body>
-    <!-- product table -->
-    <table style="width:100%">
-        <tr>
-            <th>Event Name</th>
-            <th>Event Description</th>
-            <th>Event Start date</th>
-            <th>Event End Date</th>
-            <th>Event Notes</th>
+<div class="d-flex justify-content-between align-items-center">
+    <h2 class="pb-2">{{event.event_name}}</h2>
+    <b>Starts: {{event.event_start_date.strftime('%m/%d/%Y')}}</b>
+    <b>Ends: {{event.event_end_date.strftime('%m/%d/%Y')}}</b>
+</div>
 
-        </tr>
+<div class="d-flex justify-content-between align-items-center">
+    <div class="row">
+        <p class="fs-4">{{event.event_description}}</p>
 
-        <tr>
-            <!-- Table cells will be editable to update event table -->
-            <td>
-                <div contenteditable>{{ event.event_name }}</div>
-            </td>
-            <td>
-                <div contenteditable>{{event.event_description}}</div>
-            </td>
-            <td>
-                <div contenteditable>{{event.event_start_date}}</div>
-            </td>
-            <td>
-                <div contenteditable>{{event.event_end_date}}</div>
-            </td>
-            <td>
-                <div contenteditable>{{event.event_notes}}</div>
-            </td>
-            <td>
-        </tr>
-    </table>
-    <form action="http://localhost:5000//new_event_inventory_page">
-        <input type="submit" value="Add Products to Event Inventory" />
-    </form>
-    <!-- product table -->
-    <table style="width:100%">
-        <tr>
-            <th>Show SKU Number</th>
-            <th>QTY Brought</th>
-            <th>QTY Sold</th>
-            <th>Update</th>
-            <th>Close Inventory</th>
+        <div>
+            <b>Notes:</b>
+            <p class="fs-5">{{event.event_notes}}</p>
+        </div>
+    </div>
+</div>
 
-        </tr>
+<form action="http://localhost:5000//new_event_inventory_page">
+    <input type="submit" value="Add Products to Event Inventory"/>
+</form>
+<!-- product table -->
+{% if events_inventory|length > 0 %}
+<table class="table table-borderless">
+    <tr>
+        <th>Show SKU Number</th>
+        <th>QTY Brought</th>
+        <th>QTY Sold</th>
+        <th>Update</th>
+        <th>Close Inventory</th>
+
+    </tr>
 
 
+    {%for ei in events_inventory%}
+    <tr>
+        <td><a href="http://localhost:5000/event_details{{ event.id}}">{{ei.sku_num}}</a>
+        </td>
+        <td><a href="http://localhost:5000/event_details{{ event.id }}">{{ei.qty_brought}}</a>
+        </td>
+        <td><a href="http://localhost:5000/event_details{{ event.id }}">{{ei.qty_sold}}</a>
+        </td>
+        <td>
+            <form action="http://localhost:5000//modal_{{ei.event_inv_id}}_{{ei.sku_num}}">
+                <input type="submit" value="Update Inventory"/>
+            </form>
+        </td>
+        <td>
+    </tr>
+    {%endfor%}
+</table>
+{%endif%}
+<form action="#" method="post">
+    <p><input type="submit" name="close_inventory" value="Close Inventory" required></p>
+</form>
 
-        {% if events_inventory|length > 0 %}
-        {%for ei in events_inventory%}
-        <tr>
-            <td><a href="http://localhost:5000/event_details{{ event.id}}">{{ei.sku_num}}</a>
-            </td>
-            <td><a href="http://localhost:5000/event_details{{ event.id }}">{{ei.qty_brought}}</a>
-            </td>
-            <td><a href="http://localhost:5000/event_details{{ event.id }}">{{ei.qty_sold}}</a>
-            </td>
-            <td>
-                <form action="http://localhost:5000//modal_{{ei.event_inv_id}}_{{ei.sku_num}}">
-                    <input type="submit" value="Update Inventory" />
-                </form>
-            </td>
-            <td>
-
-                {%endfor%}
-        </tr>
-        {%endif%}
-        <form action="#" method="post">
-            <p><input type="submit" name="close_inventory" value="Close Inventory" required></p>
-        </form>
-
-        {% endblock content %}
-
+{% endblock content %}
 
 </body>
 

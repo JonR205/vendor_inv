@@ -4,57 +4,45 @@
 <html>
 {% block content %}
 <!-- event table -->
-
-<head>
-    <style>
-        table,
-        th,
-        td {
-            border: 1px solid black;
-        }
-    </style>
-</head>
-
 <body>
-    <table style="width:100%">
-        <tr>
-            <th>Event Name</th>
-            <th>Event Description</th>
-            <th>Event Start date</th>
-            <th>Event End Date</th>
-            <th>Event Notes</th>
-            <!-- <th>Show SKU Number</th>
-            <th>QTY Brought</th>
-            <th>QTY Sold</th> -->
-        </tr>
-        {%for event in events%}
-        <!-- Table cells are links will add filter by links over time -->
-        <tr>
-            <td><a href="http://localhost:5000/event_details{{ event.id }}">{{ event.event_name }}</a></td>
-            <td><a href="http://localhost:5000/event_details{{ event.id }}">{{event.event_description}}</a></td>
-            <td><a href="http://localhost:5000/event_details{{ event.id }}">{{event.event_start_date}}</a></td>
-            <td><a href="http://localhost:5000/event_details{{ event.id }}">{{event.event_end_date}}</a></td>
-            <td><a href="http://localhost:5000/event_details{{ event.id }}">{{event.event_notes}}</a></td>
+<table class="table table-borderless">
+    <tr>
+        <th>Event Name</th>
+        <th>Event Description</th>
+        <th>Event Start date</th>
+        <th>Event End Date</th>
+        <th>Event Notes</th>
+        <!-- <th>Show SKU Number</th>
+        <th>QTY Brought</th>
+        <th>QTY Sold</th> -->
+    </tr>
+    {%for event in events%}
+    <!-- Table cells are links will add filter by links over time -->
+    <tr>
+        <td><a href="/event_details{{ event.id }}">{{event.event_name}}</a></td>
+        <td><a href="/event_details{{ event.id }}">{{event.event_description}}</a></td>
+        <td><a href="/event_details{{ event.id }}">{{event.event_start_date.strftime('%m/%d/%Y')}}</a></td>
+        <td><a href="/event_details{{ event.id }}">{{event.event_end_date.strftime('%m/%d/%Y')}}</a></td>
+        <td><a href="/event_details{{ event.id }}">{{event.event_notes}}</a></td>
 
-            <!-- {% if event.event_event_inventory|length > 0 %}
-            <td><a
-                    href="http://localhost:5000/event_details{{ event.id}}">{{event.event_event_inventory[0]["sku_num"]}}</a>
-            </td>
-            <td><a
-                    href="http://localhost:5000/event_details{{ event.id }}">{{event.event_event_inventory[0]["qty_brought"]}}</a>
-            </td>
-            <td><a
-                    href="http://localhost:5000/event_details{{ event.id }}">{{event.event_event_inventory[0]["qty_sold"]}}</a>
-            </td>
-            {%endif%} -->
-            {%endfor%}
-        </tr>
-    </table>
+        <!-- {% if event.event_event_inventory|length > 0 %}
+        <td><a
+                href="http://localhost:5000/event_details{{ event.id}}">{{event.event_event_inventory[0]["sku_num"]}}</a>
+        </td>
+        <td><a
+                href="http://localhost:5000/event_details{{ event.id }}">{{event.event_event_inventory[0]["qty_brought"]}}</a>
+        </td>
+        <td><a
+                href="http://localhost:5000/event_details{{ event.id }}">{{event.event_event_inventory[0]["qty_sold"]}}</a>
+        </td>
+        {%endif%} -->
+        {%endfor%}
+    </tr>
+</table>
 
-    <form action="http://localhost:5000/new_event_page">
-        <input type="submit" value="Add New Event" />
-    </form>
-
+<div class="sticky-bottom">
+    <a class="btn btn-primary" href="/new_event_page" role="button">Add New Event</a>
+</div>
 </body>
 {% endblock %}
 
